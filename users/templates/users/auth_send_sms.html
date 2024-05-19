@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Получение SMS кода для входа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="email"] {
+            width: 25%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .update-button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .update-button:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+            color: white;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<div class="container">
+        <h2>Получение SMS кода для входа</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="phone_number">Номер телефона</label>
+                <input type="text" id="phone_number" name="phone_number" value="+7">
+            </div>
+                        {% if form.errors %}
+                    <div class="error">
+                        {{ form.errors.as_text }}
+                    </div><br />
+                {% endif %}
+                        {% if error_message %}
+                    <div class="error">
+                        {{ error_message }}
+                    </div><br />
+                {% endif %}
+  <button type="submit" class="update-button">Отправить код</button>
+</form>

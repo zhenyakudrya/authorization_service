@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ваш профиль</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: auto;
+            border-collapse: collapse;
+            table-layout: auto;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .update-button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .update-button:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ваш профиль</h2>
+        <table>
+            <tr>
+                <th>Имя</th>
+                <td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+                <th>Фамилия</th>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Номер телефона</th>
+                <td>{{ user.phone_number }}</td>
+            </tr>
+            <tr>
+                <th>Мой реферальный код</th>
+                <td>{{ user.my_referral_code }}</td>
+            </tr>
+            <tr>
+                <th>Мои рефералы</th>
+                <td>{{ referrals }}</td>
+            </tr>
+            <tr>
+                <th>Реферальные баллы</th>
+                <td>{{ user.referral_points }}</td>
+            </tr>
+            <tr>
+                <th>Реферальный код пригласителя</th>
+                <td>{{ user.inviter_referral_code|default_if_none:"" }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'users:web_profile_update' %}" class="update-button">Обновить профиль</a>
+    </div>
+</body>
+</html>

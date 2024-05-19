@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование профиля</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="email"] {
+            width: 25%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .update-button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .update-button:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Редактирование профиля</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Фамилия</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}">
+            </div>
+            {% if user.inviter_referral_code == None %}
+            <div class="form-group">
+                <label for="inviter_referral_code">Реф. код пригласителя</label>
+                <input type="text" id="inviter_referral_code" name="inviter_referral_code" value="{{ user.inviter_referral_code|default_if_none:"" }}">
+                {% if form.inviter_referral_code.errors %}
+                    <div class="error">
+                        {{ form.inviter_referral_code.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <button type="submit" class="update-button">Сохранить изменения</button>
+        </form>
+    </div>
+</body>
+</html>
